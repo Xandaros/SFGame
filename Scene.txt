@@ -1,0 +1,18 @@
+--@name Scene
+--@author Xandaros
+
+--@include lib/Class.txt
+require("lib/Class.txt")
+
+Scene = Class("Scene")
+Scene.objects = {}
+
+function Scene:addObject(obj)
+	Scene.objects[obj] = true
+end
+
+function Scene:removeObject(obj)
+	Scene.objects[obj] = nil
+end
+
+-- vim: set filetype=lua :

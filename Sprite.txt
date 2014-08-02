@@ -1,0 +1,22 @@
+--@name Sprite
+--@author Xandaros
+--@include lib/Class.txt
+--@include lib/game/Vector2D.txt
+require("lib/Class.txt")
+require("lib/game/Vector2D.txt")
+
+Sprite = Class("Sprite")
+
+function Sprite:constructor(spritesheet, pos)
+	self.spritesheet = spritesheet
+	self.pos = pos
+end
+
+function Sprite:getSpritesheet()
+	return self.spritesheet
+end
+
+function Sprite:getPos()
+	return self.pos
+end
+-- vim: set filetype=lua :

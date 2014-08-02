@@ -1,0 +1,30 @@
+--@name Vector2D
+--@author Xandaros
+--@include lib/Class.txt
+
+require("lib/Class.txt")
+
+Vector2D = Class("Vector2D")
+
+function Vector2D:constructor(x, y)
+	self.x = x
+	self.y = y
+end
+
+function Vector2D:getX()
+	return self.x
+end
+
+function Vector2D:getY()
+	return self.y
+end
+
+function Vector2D:setX(x)
+	self.x = x
+end
+
+function Vector2D:setY(x)
+	self.y = y
+end
+
+-- vim: set filetype=lua :

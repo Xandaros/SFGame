@@ -1,0 +1,37 @@
+--@name Spritesheet
+--@author Xandaros
+--@include lib/Class.txt
+--@include lib/game/Vector2D.txt
+require("lib/Class.txt")
+require("lib/game/Vector2D.txt")
+
+Spritesheet = Class("Spritesheet")
+
+--@param rt Rendertarget of the spritesheet
+--@param pos position of spritesheet on RT
+--@param resolution width and height of an individual sprite in pixels
+--@param dimensions width and height of the spritesheet in sprites
+function Spritesheet:constructor(rt, pos, resolution, dimensions)
+	self.rt = rt
+	self.pos = pos
+	self.resolution = resolution
+	self.dimensions = dimensions
+end
+
+function Spritesheet:getrt()
+	return self.rt
+end
+
+function Spritesheet:getPos()
+	return self.pos
+end
+
+function Spritesheet:getResolution()
+	return self.resolution
+end
+
+function Spritesheet:getDimensions()
+	return self.dimensions
+end
+
+-- vim: set filetype=lua :

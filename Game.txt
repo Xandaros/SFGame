@@ -1,0 +1,11 @@
+--@name Game
+--@author Xandaros
+
+Game = {}
+Game.activeScene = nil
+
+function Game.setActiveScene(scene)
+	Game.activeScene = scene
+end
+
+-- vim: set filetype=lua :

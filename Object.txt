@@ -1,0 +1,42 @@
+--@name Object
+--@author Xandaros
+--@include lib/Class.txt
+--@include lib/game/Sprite.txt
+--@include lib/game/Vector2D.txt
+require("lib/Class.txt")
+require("lib/game/Sprite.txt")
+require("lib/game/Vector2D.txt")
+
+Object = Class("Object")
+
+function Object:constructor(pos, resolution, sprite)
+	self.pos = pos
+	self.resolution = resolution
+	self.sprite = sprite
+end
+
+function Object:setPos(pos)
+	self.pos = pos
+end
+
+function Object:setResolution(resolution)
+	self.resolution = resolution
+end
+
+function Object:setSprite(sprite)
+	self.sprite = sprite
+end
+
+function Object:getPos()
+	return self.pos
+end
+
+function Object:getResolution()
+	return self.resolution
+end
+
+function Object:getSprite()
+	return self.sprite
+end
+
+-- vim: set filetype=lua :
