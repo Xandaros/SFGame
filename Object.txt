@@ -9,9 +9,9 @@ require("lib/game/Vector2D.txt")
 
 Object = Class("Object")
 
-function Object:constructor(pos, resolution, sprite)
+function Object:constructor(pos, dimensions, sprite)
 	self.pos = pos
-	self.resolution = resolution
+	self.dimensions = dimensions
 	self.sprite = sprite
 end
 
@@ -19,8 +19,8 @@ function Object:setPos(pos)
 	self.pos = pos
 end
 
-function Object:setResolution(resolution)
-	self.resolution = resolution
+function Object:setDimensions(dimensions)
+	self.dimensions = dimensions
 end
 
 function Object:setSprite(sprite)
@@ -31,12 +31,23 @@ function Object:getPos()
 	return self.pos
 end
 
-function Object:getResolution()
-	return self.resolution
+function Object:getDimensions()
+	return self.dimensions
 end
 
 function Object:getSprite()
 	return self.sprite
+end
+
+function Object:draw()
+	render.selectRenderTarget()
+	local pos = self:getPos()
+	local mat = Matrix()
+	mat:translate(Vector(pos:getX(), pos:getY()))
+
+	render.pushMatrix(mat)
+	self:getSprite():draw()
+	render.popMatrix()
 end
 
 -- vim: set filetype=lua :

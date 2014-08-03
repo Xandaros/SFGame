@@ -18,7 +18,7 @@ function Spritesheet:constructor(rt, pos, resolution, dimensions)
 	self.dimensions = dimensions
 end
 
-function Spritesheet:getrt()
+function Spritesheet:getRT()
 	return self.rt
 end
 

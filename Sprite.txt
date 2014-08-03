@@ -19,4 +19,22 @@ end
 function Sprite:getPos()
 	return self.pos
 end
+
+function Sprite:draw(rt)
+	local sheet = self:getSpritesheet()
+	local offset = sheet:getPos()
+	local res = sheet:getResolution()
+	local pos = self:getPos()
+
+	local startU = offset:getX() + pos:getX() * res:getX()
+	local startV = offset:getY() + pos:getY() * res:getY()
+
+	local endU = startU + res:getX()
+	local endV = startV + res:getY()
+
+	render.selectRenderTarget(rt)
+	render.setRenderTargetTexture(sheet:getRT())
+	render.drawTexturedRectUV(0, 0, res:getX(), res:getY(), startU/992, startV/992, endU/992, endV/992)
+end
+
 -- vim: set filetype=lua :
