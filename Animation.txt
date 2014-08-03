@@ -1,0 +1,49 @@
+--@name Animation
+--@author Xandaros
+
+--@include lib/Class.txt
+--@include lib/game/Sprite.txt
+require("lib/Class.txt")
+require("lib/game/Sprite.txt")
+
+Animation = Class("Animation")
+
+function Animation:constructor(timePerFrame, sprites)
+	self.tpf = timePerFrame
+	self.frames = {}
+	self.curFrame = 0
+	self.lastDraw = 0
+	self:addSprites(sprites)
+end
+
+function Animation:getTimePerFrame()
+	return self.tpf
+end
+
+function Animation:setTimePerFrame(tpf)
+	self.tpf = tpf
+end
+
+function Animation:addSprite(sprite)
+	self.frames[#self.frames+1] = sprite
+end
+
+function Animation:addSprites(sprites)
+	if type(sprites) ~= "table" then return end
+	for i=1, #sprites do
+		self.sprites[#self.sprites] = sprites[i]
+	end
+end
+
+function Animation:draw()
+	local frameCount = #self.frames
+	local curTime = timer.curtime()
+	if frameCount == 0 then return end
+	if curTime - self.lastDraw >= self.tpf then
+		self.curFrame = (self.curFrame + 1) % frameCount
+		self.lastDraw = curTime
+	end
+	self.frames[self.curFrame+1]:draw()
+end
+
+-- vim: set filetype=lua :
