@@ -8,4 +8,14 @@ function Game.setActiveScene(scene)
 	Game.activeScene = scene
 end
 
+local function draw()
+	if Game.activeScene then
+		Game.activeScene:draw()
+	else
+		render.clear()
+	end
+end
+
+hook.add("render", "Game_mainRender", draw)
+
 -- vim: set filetype=lua :

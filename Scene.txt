@@ -8,11 +8,19 @@ Scene = Class("Scene")
 Scene.objects = {}
 
 function Scene:addObject(obj)
+	if obj == nil then return end --TODO: Add exception
 	Scene.objects[obj] = true
 end
 
 function Scene:removeObject(obj)
+	if obj == nil then return end --TODO: Add exception
 	Scene.objects[obj] = nil
+end
+
+function Scene:draw()
+	for k, _ in pairs(Scene.objects) do
+		k:draw()
+	end
 end
 
 -- vim: set filetype=lua :
