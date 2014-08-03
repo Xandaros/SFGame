@@ -9,6 +9,18 @@ Vector2D = Class("Vector2D")
 function Vector2D:constructor(x, y)
 	self.x = x
 	self.y = y
+
+	local meta = getmetatable(self)
+	meta.__mul = function(lhs, rhs)
+		if type(rhs) ~= "number" then throw("Invalid type") end
+		return Vector2D(lhs:getX()*rhs, lhs:getY()*rhs)
+	end
+	meta.__add = function(lhs, rhs)
+		return Vector2D(lhs:getX()+rhs:getX(), lhs:getY()+rhs:getY())
+	end
+	meta.__sub = function(lhs, rhs)
+		return Vector2D(lhs:getX()-rhs:getX(), lhs:getY()-rhs:getY())
+	end
 end
 
 function Vector2D:getX()

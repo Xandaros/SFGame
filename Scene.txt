@@ -18,8 +18,15 @@ function Scene:removeObject(obj)
 end
 
 function Scene:draw()
+	render.clear()
 	for k, _ in pairs(Scene.objects) do
 		k:draw()
+	end
+end
+
+function Scene:think()
+	for k, _ in pairs(Scene.objects) do
+		k:think()
 	end
 end
 

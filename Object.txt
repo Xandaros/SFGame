@@ -13,10 +13,41 @@ function Object:constructor(pos, dimensions, sprite)
 	self.pos = pos
 	self.dimensions = dimensions
 	self.sprite = sprite
+	self.moveInfo = {
+		oldPos = nil,
+		target = nil,
+		time = 0,
+		endTime = 0
+	}
 end
 
 function Object:setPos(pos)
+	if not pos.getX then throw("DEBUG", 2) end
 	self.pos = pos
+end
+
+function Object:think()
+	if self.moveInfo.target then
+		local move = self.moveInfo
+		local curTime = timer.curtime()
+		if curTime > move.endTime then
+			self:setPos(move.target)
+			move.target = nil
+		else
+			local frac = (curTime - (move.endTime - move.time))/move.time
+			local newPos = move.oldPos+(move.target-move.oldPos)*frac
+			self:setPos(newPos)
+		end
+	end
+end
+
+function Object:move(pos, time)
+	local curTime = timer.curtime()
+	local move = self.moveInfo
+	move.oldPos = self:getPos()
+	move.target = pos
+	move.time = time
+	move.endTime = curTime + time
 end
 
 function Object:setDimensions(dimensions)

@@ -16,6 +16,13 @@ local function draw()
 	end
 end
 
+local function think()
+	if Game.activeScene then
+		Game.activeScene:think()
+	end
+end
+
 hook.add("render", "Game_mainRender", draw)
+hook.add("think", "Game_mainThink", think)
 
 -- vim: set filetype=lua :
