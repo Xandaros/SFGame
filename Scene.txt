@@ -5,29 +5,101 @@
 require("lib/Class.txt")
 
 Scene = Class("Scene")
-Scene.objects = {}
+
+local function findEntry(scene, obj)
+	local targ = obj:getZ()
+	local objs = scene.objects
+	local lower = 1
+	local upper = #objs
+	local mid = 0
+
+	while lower <= upper do
+		mid = math.floor((lower+upper)/2)
+		local z = objs[mid]:getZ()
+		if z == targ then
+			return mid
+		elseif z > targ then
+			upper = mid - 1
+		else
+			lower = mid + 1
+		end
+	end
+	if not objs[mid] then return mid end
+	if objs[mid]:getZ() <= targ then
+		return mid + 1
+	else
+		return mid
+	end
+end
+
+function Scene:constructor()
+	Scene.objects = {}
+end
 
 function Scene:addObject(obj)
 	if obj == nil then return end --TODO: Add exception
-	Scene.objects[obj] = true
+
+	local objs = self.objects
+	local entryPos = findEntry(self, obj)
+	local z = obj:getZ()
+
+	if obj.scene then
+		obj.scene:removeObject(obj)
+	end
+	obj.scene = self
+
+	if not objs[entryPos] then
+		table.insert(objs, entryPos, obj)
+		return
+	end
+	while objs[entryPos]:getZ() == z do entryPos = entryPos + 1 end
+	table.insert(objs, entryPos - 1, obj)
 end
 
 function Scene:removeObject(obj)
 	if obj == nil then return end --TODO: Add exception
-	Scene.objects[obj] = nil
+
+	local objs = self.objects
+	local foundEntryPos = findEntry(self, obj)
+	local entryPos = foundEntryPos
+	local z = obj:getZ()
+
+	while objs[entryPos] and objs[entryPos]:getZ() == z do
+		if objs[entryPos] == obj then
+			table.remove(objs, entryPos)
+			obj.scene = nil
+			return
+		end
+		entryPos = entryPos + 1
+	end
+	entryPos = foundEntryPos - 1
+	while objs[entryPos] and objs[entryPos]:getZ() == z do
+		if objs[entryPos] == obj then
+			table.remove(objs, entryPos)
+			obj.scene = nil
+			return
+		end
+		entryPos = entryPos - 1
+	end
 end
 
 function Scene:draw()
 	render.clear()
-	for k, _ in pairs(Scene.objects) do
-		k:draw()
+	for _, v in ipairs(Scene.objects) do
+		v:draw()
 	end
 end
 
 function Scene:think()
-	for k, _ in pairs(Scene.objects) do
-		k:think()
+	for _, v in ipairs(Scene.objects) do
+		v:think()
 	end
+end
+
+function Scene:updateZIndex(obj, zIndex)
+	self:removeObject(obj)
+	obj.zIndex = zIndex
+	self:addObject(obj)
 end
 
 -- vim: set filetype=lua :

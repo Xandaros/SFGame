@@ -19,11 +19,17 @@ function Object:constructor(pos, dimensions, sprite)
 		time = 0,
 		endTime = 0
 	}
+	self.zIndex = 0
+	self.scene = nil
 end
 
 function Object:setPos(pos)
 	if not pos.getX then throw("DEBUG", 2) end
 	self.pos = pos
+end
+
+function Object:getZ(zIndex)
+	return self.zIndex
 end
 
 function Object:think()
@@ -60,6 +66,10 @@ end
 
 function Object:getPos()
 	return self.pos
+end
+
+function Object:setZ(zIndex)
+	self.scene:updateZIndex(self, zIndex)
 end
 
 function Object:getDimensions()
