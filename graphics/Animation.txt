@@ -2,9 +2,9 @@
 --@author Xandaros
 
 --@include lib/Class.txt
---@include lib/game/Sprite.txt
+--@include lib/game/graphics/Sprite.txt
 require("lib/Class.txt")
-require("lib/game/Sprite.txt")
+require("lib/game/graphics/Sprite.txt")
 
 Animation = Class("Animation")
 

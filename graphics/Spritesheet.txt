@@ -1,9 +1,9 @@
 --@name Spritesheet
 --@author Xandaros
 --@include lib/Class.txt
---@include lib/game/Vector2D.txt
+--@include lib/game/graphics/Vector2D.txt
 require("lib/Class.txt")
-require("lib/game/Vector2D.txt")
+require("lib/game/graphics/Vector2D.txt")
 
 Spritesheet = Class("Spritesheet")
 
