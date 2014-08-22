@@ -8,6 +8,11 @@ function Game.setActiveScene(scene)
 	Game.activeScene = scene
 end
 
+function Game.getActiveScene()
+	return self.activeScene
+end
+
+
 local function draw()
 	if Game.activeScene then
 		Game.activeScene:draw()

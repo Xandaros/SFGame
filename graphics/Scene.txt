@@ -33,7 +33,7 @@ local function findEntry(scene, obj)
 end
 
 function Scene:constructor()
-	Scene.objects = {}
+	self.objects = {}
 end
 
 function Scene:addObject(obj)
@@ -48,11 +48,16 @@ function Scene:addObject(obj)
 	end
 	obj.scene = self
 
+	if entryPos == 0 then entryPos = 1 end
+
 	if not objs[entryPos] then
 		table.insert(objs, entryPos, obj)
 		return
 	end
-	while objs[entryPos]:getZ() == z do entryPos = entryPos + 1 end
+	while objs[entryPos]:getZ() == z do
+		entryPos = entryPos + 1
+		if objs[entryPos] == nil then break end
+	end
 	table.insert(objs, entryPos - 1, obj)
 end
 
@@ -85,13 +90,13 @@ end
 
 function Scene:draw()
 	render.clear()
-	for _, v in ipairs(Scene.objects) do
+	for _, v in ipairs(self.objects) do
 		v:draw()
 	end
 end
 
 function Scene:think()
-	for _, v in ipairs(Scene.objects) do
+	for _, v in ipairs(self.objects) do
 		v:think()
 	end
 end

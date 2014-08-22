@@ -69,7 +69,11 @@ function Object:getPos()
 end
 
 function Object:setZ(zIndex)
-	self.scene:updateZIndex(self, zIndex)
+	if self.scene then
+		self.scene:updateZIndex(self, zIndex)
+	else
+		self.zIndex = zIndex
+	end
 end
 
 function Object:getDimensions()
