@@ -1,0 +1,28 @@
+--@name Text Widget
+--@author Xandaros
+
+--@include lib/Class.txt
+require("lib/Class.txt")
+--@include lib/game/graphics/Object.txt
+require("lib/game/graphics/Object.txt")
+
+Text = Class("Text", Object)
+
+function Text.superArgs(text, color, pos, dimensions)
+	return pos, dimensions
+end
+
+function Text:constructor(text, color, pos, dimensions)
+	self.text = text
+	self.color = color
+end
+
+function Text:setText(text)
+	self.text = text
+end
+
+function Text:draw()
+	render.setColor(self.color)
+	render.drawText(self.pos:getX(), self.pos:getY(), self.text)
+	render.setColor(Color(255, 255, 255))
+end
