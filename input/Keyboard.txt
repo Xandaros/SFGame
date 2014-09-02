@@ -53,4 +53,12 @@ function Keyboard.clear()
 	end
 end
 
+function Keyboard.isDown(key)
+	initKeyboard()
+
+	if not wire.ports.Keyboard then return false end
+
+	return wire.ports.Keyboard[32+key] ~= 0
+end
+
 -- vim: filetype=lua :
