@@ -43,4 +43,11 @@ function Keyboard.getKey()
 	end
 end
 
+function Keyboard.clear()
+	Keyboard.buffer = {}
+	if wire.ports.Keyboard then
+		wire.ports.Keyboard[0] = 1
+	end
+end
+
 -- vim: filetype=lua :
