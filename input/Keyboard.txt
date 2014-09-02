@@ -20,17 +20,20 @@ local function initKeyboard()
 end
 
 local function queryKeyboard()
-	if not Keyboard.initialized then return end
-	local entries = wire.ports.Keyboard[0]
+	if not wire.ports.Keyboard then return end
+	local kb = wire.ports.Keyboard
+	local entries = kb[0]
 	for i=1, entries do
-		Keyboard.buffer[#Keyboard.buffer+1] = wire.ports.Keyboard[i]
+		Keyboard.buffer[#Keyboard.buffer+1] = kb[i]
 	end
-	wire.ports.Keyboard[0] = 1
+	kb[0] = 1
 end
 
 function Keyboard.getKey()
 	initKeyboard()
+
 	if not wire.ports.Keyboard then return nil end
+
 	queryKeyboard()
 
 	local buffer = Keyboard.buffer
