@@ -61,4 +61,11 @@ function Keyboard.isDown(key)
 	return wire.ports.Keyboard[32+key] ~= 0
 end
 
+function Keyboard.getUser()
+	initKeyboard()
+	if not wire.ports.Keyboard then return nil end
+
+	return wire.ports.Keyboard.User
+end
+
 -- vim: filetype=lua :
